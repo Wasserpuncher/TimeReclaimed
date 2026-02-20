@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Reclaimed - Doomscrolling Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2f;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 50px 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #2a2a40;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 { color: #ff6b6b; }
+        p { font-size: 1.1em; line-height: 1.6; }
+        input {
+            width: 100px;
+            padding: 10px;
+            font-size: 1.2em;
+            text-align: center;
+            border: none;
+            border-radius: 6px;
+            margin: 20px 0;
+            background-color: #3f3f5a;
+            color: #fff;
+        }
+        button {
+            background-color: #4ecdc4;
+            color: #1e1e2f;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #45b7aa; }
+        #results {
+            margin-top: 30px;
+            display: none;
+            text-align: left;
+            background-color: #1e1e2f;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .highlight { color: #4ecdc4; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Stop Doomscrolling.</h1>
+        <p>How many minutes do you estimate you spend mindlessly scrolling through social media each day?</p>
+        
+        <input type="number" id="minutesInput" placeholder="e.g. 90" min="1">
+        <br>
+        <button onclick="calculateTime()">Calculate My Wasted Time</button>
+
+        <div id="results">
+            <h2>If you reclaimed this time...</h2>
+            <p>In one year, you are spending <span id="totalHours" class="highlight">0</span> hours just scrolling.</p>
+            <hr>
+            <p>📚 <strong>Books:</strong> You could have read around <span id="booksRead" class="highlight">0</span> books. <br>
+               <small>(Assuming an average of 5 hours per book)</small></p>
+            <p>🎸 <strong>Skills:</strong> You could have spent <span id="skillDays" class="highlight">0</span> full 8-hour work days learning a new instrument or language.</p>
+            <p>🚶 <strong>Health:</strong> You could have walked <span id="milesWalked" class="highlight">0</span> miles. <br>
+               <small>(Assuming a casual walking pace of 3 mph)</small></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateTime() {
+            const minutesPerDay = document.getElementById('minutesInput').value;
+            
+            if(!minutesPerDay || minutesPerDay <= 0) {
+                alert("Please enter a valid number of minutes.");
+                return;
+            }
+
+            // Calculations
+            const hoursPerYear = (minutesPerDay * 365) / 60;
+            const books = hoursPerYear / 5;
+            const skillWorkDays = hoursPerYear / 8;
+            const miles = hoursPerYear * 3;
+
+            // Update DOM
+            document.getElementById('totalHours').innerText = Math.round(hoursPerYear);
+            document.getElementById('booksRead').innerText = Math.round(books);
+            document.getElementById('skillDays').innerText = Math.round(skillWorkDays);
+            document.getElementById('milesWalked').innerText = Math.round(miles);
+
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
